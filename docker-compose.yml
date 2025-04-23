@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  weather-app:
+    build: src/.
+    # Open on port 8080 for the web application
+    ports:
+      - "8080:80"
+    container_name: weather-app
+
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    # Open on port 8081 for Jenkins UI and 50000 for agent connections
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    container_name: jenkins
+    volumes:
+      - jenkins_home:/var/jenkins_home
+
+volumes:
+  jenkins_home:
