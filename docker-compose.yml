@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   weather-app:
-    build: src/.
+    build: .
     # Open on port 8080 for the web application
     ports:
       - "8080:80"
