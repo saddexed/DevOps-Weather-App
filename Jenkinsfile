@@ -16,8 +16,8 @@ pipeline {
     post {
         always {
             bat '''
-            docker stop weather-app || exit 0
-            docker rm weather-app || exit 0
+            docker stop weather-app 2>nul
+            docker rm weather-app 2>nul
             '''
         }
     }
