@@ -16,7 +16,8 @@ pipeline {
     post {
         always {
             bat '''
-            FOR /F "tokens=*" %%i IN ('docker ps -q --filter "ancestor=weather-app"') DO docker rm -f %%i
+            docker stop weather-app || exit 0
+            docker rm weather-app || exit 0
             '''
         }
     }
