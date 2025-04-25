@@ -2,26 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t weather-app:${BUILD_NUMBER} .'
+                script {
+                    dockerImage = docker.build("weather-forecast-app")
+                }
             }
         }
         stage('Run Container') {
             steps {
-                sh 'docker rm -f weather-app || true'
-                sh 'docker run -d -p 8080:80 --name weather-app weather-app:${BUILD_NUMBER}'
+                script {
+                    dockerImage.run("-d -p 5000:5000")
+                }
             }
         }
     }
     post {
         always {
-            sh 'docker rm -f weather-app || true'
+            script {
+                // Clean up containers after build
+                sh 'docker rm -f $(docker ps -aq --filter ancestor=weather-forecast-app) || true'
+            }
         }
     }
 }

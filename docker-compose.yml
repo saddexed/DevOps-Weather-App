@@ -1,26 +1,9 @@
 version: '3.8'
 
 services:
-  weather-app:
+  web:
     build: .
-    # Open on port 8080 for the web application
     ports:
-      - "8080:80"
+      - "5000:5000"
     container_name: weather-app
-
-
-  jenkins:
-    build:
-      context: .
-      dockerfile: Dockerfile.jenkins
-    # Open on port 8081 for Jenkins UI and 50000 for agent connections
-    ports:
-      - "8081:8080"
-      - "50000:50000"
-    container_name: jenkins
-    volumes:
-      - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock  # Add this line to mount Docker socket
-
-volumes:
-  jenkins_home:
+    restart: unless-stopped
