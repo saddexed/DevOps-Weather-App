@@ -21,7 +21,7 @@ pipeline {
         always {
             script {
                 // Clean up containers after build
-                sh 'docker rm -f $(docker ps -aq --filter ancestor=weather-forecast-app) || true'
+                cmd 'docker rm -f $(docker ps -aq --filter ancestor=weather-forecast-app) || true'
             }
         }
     }
